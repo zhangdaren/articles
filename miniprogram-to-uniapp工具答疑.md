@@ -13,7 +13,7 @@
 
 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=6cccd111e447ed70ee0c17672a452bf71e7e62cfa6b427bbd746df2d32297b64"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="小程序转uni-app讨论群" title="小程序转uni-app讨论群"></a>
 
-有时编译报错，但又不知道哪行报错，可以在工具--插件安装，将eslint两个插件安装上，然后在页面里右键---验证文件语法，即知道哪行代码有问题了。
+有时编译报错，但又不知道哪行报错，可以在工具--插件安装，将eslint两个插件安装上，然后在页面里右键---验证本文档语法，即知道哪行代码有问题了。
 
 注意：如果是vant项目，转换后的uniapp项目仅支持app和h5平台，相对来说，调试起来稍为繁琐和麻烦。
 
