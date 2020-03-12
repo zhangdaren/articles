@@ -9,7 +9,7 @@
 
 建议通过本工具转换为uniapp项目后，将转换后的项目导入到hbuilder X里，先编译为微信小程序，看看是否可以正常编译和运行，保证微信小程序-->uniapp-->微信小程序是ok的，然后再尝试编译到其他平台。
 
-有报错是正常的，请参考下面文档进行修改，或加入qq群(群号：780359397)进行讨论和建议，感谢支持！
+有报错是正常的，请参考下面文档进行修改，或加入qq群： 780359397 进行讨论和建议，感谢支持！
 
 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=6cccd111e447ed70ee0c17672a452bf71e7e62cfa6b427bbd746df2d32297b64"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="小程序转uni-app讨论群" title="小程序转uni-app讨论群"></a>
 
