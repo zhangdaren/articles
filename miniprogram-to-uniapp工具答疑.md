@@ -15,7 +15,6 @@
 
 注意：如果是vant项目，转换后的uniapp项目仅支持app和h5平台，相对来说，调试起来稍为繁琐和麻烦。
 
-[TOC]
 
 ## 安装时，一直停留在fetchMetadata: sill……
 安装npm install时，长时间停留在fetchMetadata: sill mapToRegistry uri   
@@ -372,7 +371,7 @@ uni-app非v3模式不支持动态插槽
 ## 语法错误：v-if=""   
 
 #### 错误原因
-v-if没有值
+v-if没有值   
 附原小程序代码：
 ```
 <view wx:if="{{}}"></view>
