@@ -408,3 +408,10 @@ v-if没有值
 let a = 1;
 var a = 4;
 ```
+
+### bindtap里为长代码   
+如
+```
+ <a bindtap="{{canBuy==''&&buyType=='cart'?'getCart':''}}{{canBuy==''&&buyType=='buy'?'buyNow':''}}{{canBuy==''&&buyType=='select'?'select':''}}" :class="'nav-item btn confirmbtn ' + (canBuy!=''?'disabled':'')">{{canBuy==''?'确定':'库存不足'}}</a>
+```
+需手动将tap里面的内容放置在一个方法里面
