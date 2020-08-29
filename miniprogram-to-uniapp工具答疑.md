@@ -28,39 +28,49 @@
 
 你可以首先检查一下你的源是不是淘宝的镜像源   
 
-```npm config get registry```
+```
+npm config get registry
+```
 
 如果不是的，更换成淘宝的源，执行下面的命令：  
 
-```npm config set registry https://registry.npm.taobao.org```
+```
+npm config set registry https://registry.npm.taobao.org
+```
 
 配置后再通过下面方式来验证是否成功   
 
-```npm config get registry```
+```
+npm config get registry
+```
 
 然后再执行：
 
-```npm install miniprogram-to-uniapp -g```
+```
+npm install miniprogram-to-uniapp -g
+```
 
 
 ## 无法加载文件 XXXXXXXXX.ps1，因为在此系统上禁止运行脚本。
 以管理员身份运行powershell   
 
 执行   
-```set-executionpolicy remotesigned```
+```
+set-executionpolicy remotesigned
+```
 
 输入y即可   
 
-[Y] 是(Y)  [N] 否(N)  [S] 挂起(S)  [?] 帮助 (默认值为“Y”)    
-
 
 ## 运行wtu -V报错   
+```
 $ wtu -v   
 /usr/local/lib/node_modules/miniprogram-to-uniapp/src/index.js:297   
 async function filesHandle(fileData, miniprogramRoot) {   
 ^^^^^^^^   
 SyntaxError: Unexpected token function   
 ......   
+```
 #### 错误原因：
 当前nodejs版本不支持es6语法   
 #### 解决方案：
