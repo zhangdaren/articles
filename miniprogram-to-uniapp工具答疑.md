@@ -3,11 +3,11 @@
 ## 前言
 在群里给大伙答疑时，发现遇到的问题仍然不少，有工具无法处理的问题，也有代码本身的问题，因此在这里列出遇到的问题及解决方案，供转换时参考。   
 
-在这之前还是要声明，小程序语法与vue语法无法做到一一对应，工具现在无法做到100%转换，想着转换后马上就能运行到App、H5及各种平台是不太现实的！   
+在这之前还是要声明，小程序语法与vue语法无法做到一一对应，工具现在无法做到100%转换，或多或少需要做一些修改   
 
 但有例外，RMB可以~   
 
-建议通过本工具转换为uniapp项目后，将转换后的项目导入到hbuilder X里，先编译为微信小程序，看看是否可以正常编译和运行，保证微信小程序-->uniapp-->微信小程序是ok的，然后再尝试编译到其他平台。
+建议通过本工具转换为uniapp项目后，将转换后的项目导入到hbuilder X里，**先编译为微信小程序，看看是否可以正常编译和运行，保证 “微信小程序-->uniapp-->微信小程序” 是ok的，然后再尝试编译到其他平台。**
 
 有报错是正常的，请参考下面文档进行修改，或加入qq群： 780359397 进行讨论和建议，感谢支持！
 
@@ -15,7 +15,7 @@
 
 有时编译报错，但又不知道哪行报错，可以在工具--插件安装，将eslint两个插件安装上，然后在页面里右键---验证本文档语法，即知道哪行代码有问题了。
 
-注意：如果是vant项目，转换后的uniapp项目仅支持app和h5平台，相对来说，调试起来稍为繁琐和麻烦。
+注意：**如果是vant项目，转换后的uniapp项目仅支持app和h5平台**，相对来说，调试起来稍为繁琐和麻烦。
 
 声明：   
 微信小程序项目，如果经过混淆过，比如代码是这样```var a = ""; var t = getApp();```时，不推荐转换为uniapp项目！！！
@@ -351,6 +351,17 @@ ctx.selectComponent(selector).$vm;
 暂未并入工具，现在手动修改。   
 （原因是ctx.selectComponent(selector)为null时，会报错Cannot read property '$vm' of null）   
 
+---
+
+2020-08-29 最新方案：
+建议使用vue调用组件的方式，即：
+```
+<diy-compoent ref="abc"></diy-compoent>
+ 
+ //通过refs获取到abc这个组件，并调用它的fun方法
+this.$refs.abc.fun();
+```
+
 
 ## 返回顶部不生效   
 可参考：[scroll-view](https://uniapp.dcloud.io/component/scroll-view)里的写法   
@@ -420,3 +431,69 @@ var a = 4;
  <a bindtap="{{canBuy==''&&buyType=='cart'?'getCart':''}}{{canBuy==''&&buyType=='buy'?'buyNow':''}}{{canBuy==''&&buyType=='select'?'select':''}}" :class="'nav-item btn confirmbtn ' + (canBuy!=''?'disabled':'')">{{canBuy==''?'确定':'库存不足'}}</a>
 ```
 需手动将tap里面的内容放置在一个方法里面
+
+
+
+## getCurrentPages
+```
+const pages = getCurrentPages();
+let currentPage = pages[pages.length-1];
+let options =currentPage.options || currentPage.$route.query;
+```
+
+
+## SyntaxError: Void elements do not have end tags "input" (83:149)
+input没有结束标签，然后格式化插件报错，编译不报错就行。
+
+## 在vue初始化前就调用了getApp()
+多发生于在main里加载的组件里调用了getApp();
+
+
+## 文件查找失败：'./iconfont.eot?t=1583910898195'
+转换后运行时，控制台报如下错误：
+```
+11:31:22.930 文件查找失败：'./iconfont.eot?t=1583910898195' at App.vue:4
+11:31:22.932 文件查找失败：'./iconfont.svg?t=1583910898195' at App.vue:7
+11:31:22.939 文件查找失败：'./iconfont.ttf?t=1583910898195' at App.vue:6
+11:31:22.939 文件查找失败：'./iconfont.woff?t=1583910898195' at App.vue:5
+```
+本来，想着在工具里能把这个错误给规避掉，后面发现异常情况太多，没啥太好的办法。
+
+原因： 
+在微信小程序里，wxss里面引用的路径，如果不存在是不会报错的。
+但在uniapp里就不一样了，路径不存在会在编译阶段直接报错。
+
+根据报错信息，显然是说字体文件路径不存在，原因有二，要么是文件路径不对，要么是对应文件不存在。
+
+在这里，文件不存在的可能性更高一些！
+
+
+#### 解决方案
+一般来说，这种情况，都是引用了字体图标，而没有把字体文件一并导入导致的。
+因此找到对应的css文件，然后将里面的字体路径引用注释或删除，保留base64的部分即可。
+
+
+#### 重现示例
+```
+//iconfont.css
+@font-face {
+  font-family: "iconfont";
+  src: url('iconfont.eot?t=1583910898195'); /* IE9 */
+  src: url('iconfont.eot?t=1583910898195#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAF+sAAsAAAAAwAgAAF9YAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHE..........(大段内容省略).........twPFbcAAAAA') format('woff2'),
+  url('iconfont.woff?t=1583910898195') format('woff'),
+  url('iconfont.ttf?t=1583910898195') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1583910898195#iconfont') format('svg'); /* iOS 4.1- */
+}
+```
+
+#### 修复示例 
+```
+//iconfont.css
+@font-face {
+  font-family: "iconfont";
+  src: url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAF+sAAsAAAAAwAgAAF9YAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHE..........(大段内容省略).........twPFbcAAAAA') format('woff2');
+}
+```
+修改时，请仔细对比这两段代码的差异。
+
