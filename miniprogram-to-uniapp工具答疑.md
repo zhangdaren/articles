@@ -212,8 +212,12 @@ export default {
   props: ["article"],
   watch: {
     //监听props里的变量
-	article: function(newVal, oldval) {
-	   this.articleBak = newVal;
+	article:{
+		handler(newVal, oldval) {
+		   this.articleBak = newVal;
+		},
+		immediate: true,  //刷新加载 立马触发一次handler
+		deep: true  // 可以深度检测到 person 对象的属性值的变化
 	}
   },
   methods: {
