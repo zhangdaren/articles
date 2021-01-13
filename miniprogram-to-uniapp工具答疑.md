@@ -86,6 +86,13 @@ SyntaxError: Unexpected token function
 sudo npm install miniprogram-to-uniapp -g
 
 
+## 运行到H5或其他平台，控制台报错：[system] API `login` is not yet implemented   
+#### 错误原因：   
+此api在当前平台不支持，具体请查看uniapp的api文档   
+#### 解决方案：   
+绕过，使用条件编译不同平台，使用不同的处理方式。   
+如，登录，h5里的登录涉及到很多种情况，需自行处理，如使用帐号密码、手机号验证码、微信登录等等方式。   
+
 
 ## 报错：[Vue warn]: Invalid prop: type check failed for prop "couponList". Expected Array, got String with value "".
 #### 错误原因
@@ -514,7 +521,7 @@ input没有结束标签，然后格式化插件报错，编译不报错就行。
 
 
 ## 转换使用weui的小程序，运行时报错"ReferenceError: moduleId is not defined"
-原因是工具对weui库有点不太适应，weui看起来是webpack直拉打包出来的，然而里面又有小程序的代码，可以将里面的小程序代码保留，将webpack的结构删除，并不影响小程序的运行！
+原因是工具对weui库有点不太适应，weui看起来是webpack直接打包出来的，然而里面又有小程序的代码，这里可以将里面的小程序代码保留，并将webpack的结构删除，不会影响小程序运行的！
 
 #### 重现示例
 ```
